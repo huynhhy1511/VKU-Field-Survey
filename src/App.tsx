@@ -342,17 +342,18 @@ export default function App() {
               </div>
             )}
 
-            {/* Tiêu đề phiếu kiểm toán */}
-            <div className="mb-5 bg-white p-4 sm:p-5 rounded-2xl border border-slate-200/90 shadow-2xs flex items-center justify-between">
+            {/* Tiêu đề phiếu kiểm toán phối màu VKU */}
+            <div className="mb-5 bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-2xs flex items-center justify-between overflow-hidden relative">
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-600 via-amber-400 to-blue-700" />
               <div>
                 <h1 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">
                   Phiếu Kiểm Toán Cơ Sở Vật Chất
                 </h1>
-                <p className="text-xs text-slate-500 mt-1">
-                  Đại học Công nghệ Thông tin và Truyền thông Việt - Hàn (VKU)
+                <p className="text-xs text-slate-500 mt-1 font-medium">
+                  Trường Đại học Công nghệ Thông tin & Truyền thông Việt - Hàn (VKU)
                 </p>
               </div>
-              <span className="hidden sm:inline-block px-3 py-1 bg-sky-50 text-sky-700 border border-sky-200 rounded-full text-xs font-bold">
+              <span className="hidden sm:inline-block px-3 py-1 bg-red-50 text-red-700 border border-red-200 rounded-full text-xs font-bold">
                 Phiếu Khảo Sát
               </span>
             </div>

@@ -12,11 +12,9 @@ import {
   Star, 
   AlertCircle, 
   Camera, 
-  MapPin, 
   Trash2, 
   RefreshCw, 
   CheckCircle2, 
-  AlertTriangle, 
   Image as ImageIcon,
   Send,
   CloudOff,
@@ -36,7 +34,7 @@ interface SingleSurveyFormProps {
   showToast: (msg: string, type?: 'info' | 'success' | 'warning' | 'error') => void;
 }
 
-// Cấu trúc phân khu và tòa nhà VKU theo yêu cầu
+// Cấu trúc phân khu và tòa nhà VKU chuẩn xác
 const VKU_BUILDINGS: Record<CampusArea, { id: string; name: string; desc: string }[]> = {
   'Khu K': [
     { id: 'Tòa K.A', name: 'Tòa A (K.A)', desc: 'Khu giảng đường lý thuyết A' },
@@ -71,11 +69,11 @@ const CATEGORIES: { id: FacilityCategory; label: string; icon: any; desc: string
 ];
 
 const RATING_DESCRIPTIONS: Record<number, { text: string; color: string; bg: string }> = {
-  1: { text: '1 Sao - Hỏng hóc nặng / Không thể sử dụng', color: 'text-rose-700', bg: 'bg-rose-50 border-rose-200' },
-  2: { text: '2 Sao - Có lỗi nghiêm trọng / Cần sửa gấp', color: 'text-amber-700', bg: 'bg-amber-50 border-amber-200' },
+  1: { text: '1 Sao - Hỏng hóc nặng / Không thể sử dụng', color: 'text-red-700', bg: 'bg-red-50 border-red-200' },
+  2: { text: '2 Sao - Có lỗi nghiêm trọng / Cần sửa gấp', color: 'text-amber-800', bg: 'bg-amber-50 border-amber-200' },
   3: { text: '3 Sao - Hoạt động chập chờn / Cần bảo dưỡng', color: 'text-yellow-800', bg: 'bg-yellow-50 border-yellow-200' },
-  4: { text: '4 Sao - Tình trạng tốt / Có hao mòn nhẹ', color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200' },
-  5: { text: '5 Sao - Hoàn hảo / Mới và hoạt động rất tốt', color: 'text-teal-700', bg: 'bg-teal-50 border-teal-200' },
+  4: { text: '4 Sao - Tình trạng tốt / Có hao mòn nhẹ', color: 'text-blue-800', bg: 'bg-blue-50 border-blue-200' },
+  5: { text: '5 Sao - Hoàn hảo / Mới và hoạt động rất tốt', color: 'text-emerald-700', bg: 'bg-emerald-50 border-emerald-200' },
 };
 
 export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
@@ -92,7 +90,6 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
   // Đổi phân khu (Khu K / Khu V)
   const handleSelectArea = (area: CampusArea) => {
     onChange('campusArea', area);
-    // Tự động chọn tòa đầu tiên của khu mới nếu tòa hiện tại không thuộc khu đó
     const buildingsInArea = VKU_BUILDINGS[area];
     if (!buildingsInArea.some(b => b.id === formData.building)) {
       onChange('building', buildingsInArea[0].id);
@@ -142,41 +139,41 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
       }}
       className="space-y-6"
     >
-      {/* ==================== PHẦN 1: VỊ TRÍ KHUÔN VIÊN VKU ==================== */}
-      <section className="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xs space-y-5">
+      {/* ==================== PHẦN 1: VỊ TRÍ KHUÔN VIÊN VKU (XANH DƯƠNG) ==================== */}
+      <section className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-100 text-sky-700 font-bold text-xs">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-700 text-white font-black text-xs shadow-2xs">
               1
             </span>
             <h2 className="font-bold text-base text-slate-900 flex items-center gap-2">
-              <Building2 className="w-5 h-5 text-sky-600" />
+              <Building2 className="w-5 h-5 text-blue-700" />
               Địa điểm & Vị trí kiểm toán
             </h2>
           </div>
-          <span className="text-[11px] text-slate-400 font-medium">* Bắt buộc điền</span>
+          <span className="text-[11px] text-red-600 font-bold">* Bắt buộc điền</span>
         </div>
 
         {/* 1.1 Người kiểm toán */}
         <div className="space-y-1.5">
           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <User className="w-3.5 h-3.5 text-sky-600" />
-            Kiểm toán viên / Sinh viên phụ trách <span className="text-rose-500">*</span>
+            <User className="w-3.5 h-3.5 text-blue-700" />
+            Kiểm toán viên / Sinh viên phụ trách <span className="text-red-600">*</span>
           </label>
           <input
             type="text"
             value={formData.auditorName}
             onChange={(e) => onChange('auditorName', e.target.value)}
             placeholder="VD: Lê Hoàng Nam (21IT089)"
-            className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all shadow-2xs"
+            className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all shadow-2xs"
           />
         </div>
 
         {/* 1.2 Phân khu VKU (Khu K / Khu V) */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <Building2 className="w-3.5 h-3.5 text-sky-600" />
-            Chọn Phân khu VKU <span className="text-rose-500">*</span>
+            <Building2 className="w-3.5 h-3.5 text-blue-700" />
+            Chọn Phân khu VKU <span className="text-red-600">*</span>
           </label>
           <div className="grid grid-cols-2 gap-3">
             {(['Khu K', 'Khu V'] as CampusArea[]).map((area) => {
@@ -186,14 +183,17 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
                   key={area}
                   type="button"
                   onClick={() => handleSelectArea(area)}
-                  className={`p-3 rounded-xl border text-center font-bold text-sm transition-all ${
+                  className={`p-3.5 rounded-xl border text-center font-bold text-sm transition-all ${
                     isSelected
-                      ? 'bg-sky-600 text-white border-sky-600 shadow-md shadow-sky-600/20 scale-[1.01]'
+                      ? 'bg-blue-700 text-white border-blue-700 shadow-md shadow-blue-700/20 scale-[1.01]'
                       : 'bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300'
                   }`}
                 >
-                  <div className="text-base font-extrabold">{area}</div>
-                  <div className={`text-[11px] font-normal mt-0.5 ${isSelected ? 'text-sky-100' : 'text-slate-500'}`}>
+                  <div className="text-base font-extrabold flex items-center justify-center gap-1.5">
+                    <span>{area}</span>
+                    {isSelected && <span className="w-2 h-2 rounded-full bg-amber-400" />}
+                  </div>
+                  <div className={`text-[11px] font-medium mt-0.5 ${isSelected ? 'text-amber-200' : 'text-slate-500'}`}>
                     {area === 'Khu K' ? 'Tòa A, B, C, Thư viện, KTX' : 'Tòa A, Tòa B'}
                   </div>
                 </button>
@@ -206,7 +206,7 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
         <div className="space-y-2">
           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
             <span>Tòa nhà tại {formData.campusArea || 'Khu K'}</span>
-            <span className="text-rose-500">*</span>
+            <span className="text-red-600">*</span>
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {currentBuildings.map((b) => {
@@ -216,9 +216,9 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
                   key={b.id}
                   type="button"
                   onClick={() => onChange('building', b.id)}
-                  className={`text-left p-3 rounded-xl border transition-all ${
+                  className={`text-left p-3.5 rounded-xl border transition-all ${
                     isSelected
-                      ? 'bg-sky-50/90 border-sky-500 text-sky-950 ring-2 ring-sky-200 shadow-xs'
+                      ? 'bg-blue-50/90 border-blue-600 text-blue-950 ring-2 ring-blue-200 shadow-xs'
                       : 'bg-white border-slate-200 text-slate-800 hover:border-slate-300 hover:bg-slate-50/70 shadow-2xs'
                   }`}
                 >
@@ -234,13 +234,13 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-sky-600" />
-              Tầng <span className="text-rose-500">*</span>
+              <Layers className="w-3.5 h-3.5 text-blue-700" />
+              Tầng <span className="text-red-600">*</span>
             </label>
             <select
               value={formData.floor}
               onChange={(e) => onChange('floor', e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all shadow-2xs"
+              className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all shadow-2xs"
             >
               <option value="">-- Chọn tầng --</option>
               {FLOORS.map((f) => (
@@ -253,29 +253,29 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
 
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-              <DoorClosed className="w-3.5 h-3.5 text-sky-600" />
-              Số phòng / Khu vực <span className="text-rose-500">*</span>
+              <DoorClosed className="w-3.5 h-3.5 text-blue-700" />
+              Số phòng / Khu vực <span className="text-red-600">*</span>
             </label>
             <input
               type="text"
               value={formData.room}
               onChange={(e) => onChange('room', e.target.value)}
               placeholder="VD: KA.204, KB.301, VA.102..."
-              className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all shadow-2xs"
+              className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all shadow-2xs"
             />
           </div>
         </div>
       </section>
 
-      {/* ==================== PHẦN 2: HẠNG MỤC & ĐÁNH GIÁ ==================== */}
-      <section className="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xs space-y-5">
+      {/* ==================== PHẦN 2: HẠNG MỤC & ĐÁNH GIÁ (ĐỎ & VÀNG) ==================== */}
+      <section className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-100 text-sky-700 font-bold text-xs">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-red-600 text-white font-black text-xs shadow-2xs">
               2
             </span>
             <h2 className="font-bold text-base text-slate-900 flex items-center gap-2">
-              <Cpu className="w-5 h-5 text-sky-600" />
+              <Cpu className="w-5 h-5 text-red-600" />
               Hạng mục & Đánh giá hiện trạng
             </h2>
           </div>
@@ -284,8 +284,8 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
         {/* 2.1 Chọn Hạng mục */}
         <div className="space-y-2">
           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <Cpu className="w-3.5 h-3.5 text-sky-600" />
-            Hạng mục cơ sở vật chất <span className="text-rose-500">*</span>
+            <Cpu className="w-3.5 h-3.5 text-red-600" />
+            Hạng mục cơ sở vật chất <span className="text-red-600">*</span>
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             {CATEGORIES.map((cat) => {
@@ -299,13 +299,13 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
                   onClick={() => onChange('category', cat.id)}
                   className={`text-left p-3.5 rounded-xl border flex items-start space-x-3 transition-all ${
                     isSelected
-                      ? 'bg-sky-50/90 border-sky-500 text-sky-950 ring-2 ring-sky-200 shadow-xs'
+                      ? 'bg-red-50/90 border-red-500 text-red-950 ring-2 ring-red-200 shadow-xs'
                       : 'bg-white border-slate-200 text-slate-800 hover:border-slate-300 hover:bg-slate-50/70 shadow-2xs'
                   }`}
                 >
                   <div
                     className={`p-2 rounded-lg ${
-                      isSelected ? 'bg-sky-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600'
+                      isSelected ? 'bg-red-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -320,11 +320,11 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
           </div>
         </div>
 
-        {/* 2.2 Đánh giá 1 - 5 sao */}
-        <div className="space-y-2.5 p-4 rounded-xl bg-slate-50 border border-slate-200 shadow-2xs">
-          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <Star className="w-3.5 h-3.5 text-amber-500" />
-            Đánh giá tình trạng (1 - 5 sao) <span className="text-rose-500">*</span>
+        {/* 2.2 Đánh giá 1 - 5 sao (Vàng VKU) */}
+        <div className="space-y-2.5 p-4 rounded-xl bg-amber-50/60 border border-amber-200 shadow-2xs">
+          <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+            Đánh giá tình trạng (1 - 5 sao) <span className="text-red-600">*</span>
           </label>
 
           <div className="flex items-center space-x-2 py-1">
@@ -339,19 +339,19 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
                   className={`w-9 h-9 transition-colors duration-200 ${
                     star <= formData.rating
                       ? 'fill-amber-400 text-amber-400 drop-shadow-xs'
-                      : 'text-slate-300 fill-slate-100 hover:text-slate-400'
+                      : 'text-slate-300 fill-white hover:text-slate-400'
                   }`}
                 />
               </button>
             ))}
-            <span className="ml-2 text-base font-extrabold text-amber-600">
+            <span className="ml-2 text-base font-black text-amber-700">
               {formData.rating > 0 ? `${formData.rating}/5 sao` : ''}
             </span>
           </div>
 
           {formData.rating > 0 && (
             <div
-              className={`text-xs font-semibold p-2.5 rounded-lg border ${
+              className={`text-xs font-bold p-2.5 rounded-lg border ${
                 RATING_DESCRIPTIONS[formData.rating].bg
               } ${RATING_DESCRIPTIONS[formData.rating].color}`}
             >
@@ -363,7 +363,7 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
         {/* 2.3 Ghi chú lỗi chi tiết */}
         <div className="space-y-1.5">
           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <AlertCircle className="w-3.5 h-3.5 text-sky-600" />
+            <AlertCircle className="w-3.5 h-3.5 text-blue-700" />
             Ghi chú lỗi & Chi tiết hiện trạng
           </label>
           <textarea
@@ -371,20 +371,20 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
             onChange={(e) => onChange('notes', e.target.value)}
             rows={3}
             placeholder="Mô tả cụ thể sự cố (VD: Máy chiếu phòng KA.204 bị mờ, cổng HDMI chập chờn; Máy tính số 15 hỏng nguồn...)"
-            className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-4 focus:ring-sky-100 transition-all shadow-2xs"
+            className="w-full bg-slate-50 border border-slate-200 hover:border-slate-300 focus:bg-white rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all shadow-2xs"
           />
         </div>
       </section>
 
-      {/* ==================== PHẦN 3: BẰNG CHỨNG HÌNH ẢNH ==================== */}
-      <section className="bg-white rounded-2xl border border-slate-200/90 p-5 sm:p-6 shadow-xs space-y-5">
+      {/* ==================== PHẦN 3: BẰNG CHỨNG HÌNH ẢNH (VÀNG / XANH) ==================== */}
+      <section className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
         <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-sky-100 text-sky-700 font-bold text-xs">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-amber-500 text-amber-950 font-black text-xs shadow-2xs">
               3
             </span>
             <h2 className="font-bold text-base text-slate-900 flex items-center gap-2">
-              <Camera className="w-5 h-5 text-sky-600" />
+              <Camera className="w-5 h-5 text-amber-600" />
               Bằng chứng Hình ảnh hiện trường
             </h2>
           </div>
@@ -394,18 +394,18 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
         <div className="space-y-2.5">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-              <ImageIcon className="w-3.5 h-3.5 text-sky-600" />
+              <ImageIcon className="w-3.5 h-3.5 text-blue-700" />
               Ảnh chụp hiện trường thiết bị / phòng học
             </label>
             {formData.photoBase64 && (
-              <span className="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold">
-                <CheckCircle2 className="w-3 h-3 text-emerald-600" /> Đã lưu Base64 Offline
+              <span className="text-[11px] text-blue-800 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full flex items-center gap-1 font-bold">
+                <CheckCircle2 className="w-3 h-3 text-blue-700" /> Đã lưu Base64 Offline
               </span>
             )}
           </div>
 
           {formData.photoBase64 ? (
-            <div className="relative rounded-2xl overflow-hidden border-2 border-sky-300 bg-slate-100 group shadow-md">
+            <div className="relative rounded-2xl overflow-hidden border-2 border-blue-400 bg-slate-100 group shadow-md">
               <img
                 src={formData.photoBase64}
                 alt="Ảnh chụp hiện trường"
@@ -420,7 +420,7 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
                     type="button"
                     onClick={handleTakePhoto}
                     disabled={isCapturingPhoto}
-                    className="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm"
+                    className="px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-sm"
                   >
                     <RefreshCw className={`w-3 h-3 ${isCapturingPhoto ? 'animate-spin' : ''}`} />
                     Chụp lại
@@ -428,7 +428,7 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
                   <button
                     type="button"
                     onClick={handleRemovePhoto}
-                    className="p-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg shadow-sm"
+                    className="p-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg shadow-sm"
                     title="Xóa ảnh"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -441,12 +441,12 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
               type="button"
               onClick={handleTakePhoto}
               disabled={isCapturingPhoto}
-              className="w-full h-40 border-2 border-dashed border-sky-300 hover:border-sky-500 bg-sky-50/50 hover:bg-sky-50 rounded-2xl flex flex-col items-center justify-center p-4 transition-all group shadow-2xs"
+              className="w-full h-40 border-2 border-dashed border-blue-300 hover:border-blue-600 bg-blue-50/40 hover:bg-blue-50/80 rounded-2xl flex flex-col items-center justify-center p-4 transition-all group shadow-2xs"
             >
-              <div className="w-11 h-11 rounded-full bg-sky-100 text-sky-600 group-hover:bg-sky-600 group-hover:text-white flex items-center justify-center transition-colors mb-2 shadow-xs">
+              <div className="w-11 h-11 rounded-full bg-blue-100 text-blue-700 group-hover:bg-blue-700 group-hover:text-white flex items-center justify-center transition-colors mb-2 shadow-xs">
                 <Camera className={`w-5 h-5 ${isCapturingPhoto ? 'animate-bounce' : ''}`} />
               </div>
-              <span className="text-sm font-bold text-slate-800 group-hover:text-sky-700">
+              <span className="text-sm font-bold text-slate-800 group-hover:text-blue-700">
                 {isCapturingPhoto ? 'Đang mở Camera...' : 'Bấm để chụp ảnh hoặc chọn ảnh'}
               </span>
               <span className="text-xs text-slate-500 mt-1">
@@ -457,18 +457,18 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
         </div>
       </section>
 
-      {/* ==================== PHẦN 4: THÔNG BÁO MẠNG & NÚT GỬI PHIẾU ==================== */}
+      {/* ==================== PHẦN 4: THÔNG BÁO MẠNG & NÚT GỬI PHIẾU (ĐỎ - VÀNG - XANH) ==================== */}
       <section className="space-y-4">
         {/* Banner trạng thái kết nối */}
         <div
           className={`p-4 rounded-2xl border flex items-start gap-3 text-xs transition-all ${
             network.connected
-              ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
+              ? 'bg-blue-50 border-blue-200 text-blue-900'
               : 'bg-amber-50 border-amber-200 text-amber-900'
           }`}
         >
           {network.connected ? (
-            <Wifi className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+            <Wifi className="w-4 h-4 text-blue-700 flex-shrink-0 mt-0.5" />
           ) : (
             <CloudOff className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
           )}
@@ -476,7 +476,7 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
             <div className="font-bold">
               {network.connected
                 ? 'Thiết bị đang Trực tuyến (Online)'
-                : 'Thiết bị đang Ngoại tuyến (Offline Mode)'}
+                : 'Thiết bị đang Ngoại tuyến (Offline)'}
             </div>
             <div className="text-[11px] opacity-90 mt-0.5 leading-normal">
               {network.connected
@@ -491,10 +491,10 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
           <button
             type="submit"
             disabled={!isFormValid || isSubmitting}
-            className={`w-full flex-1 py-3.5 px-6 text-white font-bold text-sm rounded-xl shadow-md transition-all flex items-center justify-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed ${
+            className={`w-full flex-1 py-3.5 px-6 text-white font-black text-sm rounded-xl shadow-md transition-all flex items-center justify-center space-x-2 disabled:opacity-40 disabled:cursor-not-allowed ${
               network.connected
-                ? 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 shadow-emerald-600/20'
-                : 'bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 shadow-sky-600/20'
+                ? 'bg-gradient-to-r from-red-600 via-red-600 to-blue-700 hover:from-red-700 hover:to-blue-800 shadow-red-500/25 ring-2 ring-amber-300'
+                : 'bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 shadow-blue-700/25'
             }`}
           >
             <Send className="w-4 h-4" />
@@ -510,7 +510,7 @@ export const SingleSurveyForm: React.FC<SingleSurveyFormProps> = ({
           <button
             type="button"
             onClick={onClearDraft}
-            className="w-full sm:w-auto py-3 px-4 bg-white hover:bg-slate-50 text-slate-600 text-xs font-semibold rounded-xl border border-slate-200 transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
+            className="w-full sm:w-auto py-3 px-4 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold rounded-xl border border-slate-200 transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
             title="Xóa trắng form hiện tại để nhập phiếu mới"
           >
             <RotateCcw className="w-3.5 h-3.5 text-slate-400" />

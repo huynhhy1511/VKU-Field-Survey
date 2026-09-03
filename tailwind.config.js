@@ -8,15 +8,17 @@ export default {
     extend: {
       colors: {
         vku: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          500: '#0284c7', // VKU sky-blue theme
-          600: '#0369a1',
-          700: '#075985',
-          800: '#0c4a6e',
-          900: '#082f49',
-          orange: '#ea580c', // VKU accent orange
+          red: '#dc2626',      // Màu đỏ VKU
+          'red-dark': '#b91c1c',
+          'red-light': '#fef2f2',
+          gold: '#f59e0b',     // Màu vàng VKU
+          'gold-dark': '#d97706',
+          'gold-light': '#fffbeb',
+          blue: '#1d4ed8',     // Màu xanh dương VKU
+          'blue-dark': '#1e40af',
+          'blue-light': '#eff6ff',
+          navy: '#0f172a',
+          white: '#ffffff',
         }
       }
     },
