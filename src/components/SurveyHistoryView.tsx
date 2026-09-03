@@ -63,7 +63,7 @@ export const SurveyHistoryView: React.FC<SurveyHistoryViewProps> = ({
       <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-red-100 text-red-700 flex items-center justify-center border border-red-200">
+            <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center border border-blue-200">
               <History className="w-5 h-5" />
             </div>
             <div>
@@ -80,7 +80,7 @@ export const SurveyHistoryView: React.FC<SurveyHistoryViewProps> = ({
         <div className="flex items-center gap-2.5">
           <button
             onClick={onNewSurvey}
-            className="flex-1 sm:flex-initial px-4 py-2.5 bg-gradient-to-r from-red-600 via-red-600 to-blue-700 hover:from-red-700 hover:to-blue-800 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5 ring-2 ring-amber-300"
+            className="flex-1 sm:flex-initial px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center justify-center gap-1.5"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Tạo Phiếu Mới</span>
@@ -154,7 +154,7 @@ export const SurveyHistoryView: React.FC<SurveyHistoryViewProps> = ({
               onClick={() => setFilterArea(f.id as any)}
               className={`px-3 py-1.5 rounded-lg border whitespace-nowrap transition-all ${
                 filterArea === f.id
-                  ? 'bg-blue-700 text-white border-blue-700 shadow-2xs'
+                  ? 'bg-blue-600 text-white border-blue-600 shadow-2xs'
                   : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
               }`}
             >
@@ -177,7 +177,7 @@ export const SurveyHistoryView: React.FC<SurveyHistoryViewProps> = ({
             </p>
             <button
               onClick={onNewSurvey}
-              className="mt-4 px-5 py-2.5 bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs rounded-xl shadow-xs inline-flex items-center gap-1.5 transition-all"
+              className="mt-4 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-xs inline-flex items-center gap-1.5 transition-all"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Tạo Phiếu Ngay</span>
