@@ -327,7 +327,10 @@ export default function App() {
       />
 
       {/* Main Content: Phiếu Khảo Sát HOẶC Lịch Sử */}
-      <main className="flex-1 max-w-2xl w-full mx-auto p-3 sm:p-6 pb-20">
+      <main
+        className="flex-1 max-w-2xl w-full mx-auto p-3 sm:p-6"
+        style={{ paddingBottom: 'max(5rem, calc(env(safe-area-inset-bottom, 0px) + 3.5rem))' }}
+      >
         {activeTab === 'FORM' ? (
           <>
             {/* Banner trạng thái Offline nếu mất mạng */}
